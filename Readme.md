@@ -1,1 +1,3 @@
-Test file Readme is added to the clone repository. 
+Test file Readme is added from the clone repository. 
+
+It's very interesting and important file. Save it. 
