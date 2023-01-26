@@ -1,23 +1,18 @@
 package ua.ithillel.lesson2.part2;
 
-public class Animal {
+// --- создание абстрактного родительского класса для потомков Cat и Dog
+abstract public class Animal {
 
-    private  String name;
-    private  double distance;
+    protected String name;
 
      // --- конструктор
-    public Animal(String name, double distance) {
+    public Animal(String name) {
         this.name = name;
-        this.distance = distance;
     }
 
      // --- методы
-    public void run(){
-        System.out.println(name + " running...");
-    }
+    abstract public void run(double distance);
 
-    public void swim(){
-        System.out.println(name + " swimming...");
-    }
+    abstract public void swim(double distance);
 
 }
