@@ -1,5 +1,6 @@
 package ua.ithillel.lesson2.part2;
 
+// --- создание абстрактного родительского класса для потомков Cat и Dog
 abstract public class Animal {
 
     protected String name;
