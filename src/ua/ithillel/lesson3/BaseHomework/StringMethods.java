@@ -23,7 +23,7 @@ public class StringMethods {
     // --- Задание 4: передаем строку и возвращаем строку-реверс
     public String stringReverse(String aString){
 
-        StringBuffer s = new StringBuffer(aString);
+        StringBuilder s = new StringBuilder(aString);
         s.reverse();
 
         return s.toString();
