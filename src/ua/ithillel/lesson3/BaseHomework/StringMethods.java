@@ -32,7 +32,7 @@ public class StringMethods {
     // --- Задание 5: передаем слово и проверяем является ли оно полиндромом
     public  boolean isPalindrome(String aString){
 
-        String s = stringReverse(aString);
+        String s = stringReverse(aString);          // используем функцию-реверс из задания 4
 
         return  aString.equals(s);
     }
