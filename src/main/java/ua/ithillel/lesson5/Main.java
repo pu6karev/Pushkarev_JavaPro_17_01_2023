@@ -16,5 +16,7 @@ public class Main {
         System.out.println("indexOf=" + myArrayString.indexOf("elem2"));
         System.out.println("indexOf=" + myArrayString.indexOf("elem3"));
         System.out.println("indexOf=" + myArrayString.indexOf("elem4"));
+
+        myArrayString.remove(3);
     }
 }

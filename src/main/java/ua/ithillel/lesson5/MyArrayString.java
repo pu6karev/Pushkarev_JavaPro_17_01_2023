@@ -19,7 +19,20 @@ public class MyArrayString implements HillelList{
 
     @Override
     public String remove(int index) {
-        return null;
+        if (baseArray == null) return null;
+        if (index >= baseArray.length) return null;
+
+        String[] ar = new String[baseArray.length-1];
+
+        if(index > 0) {
+            System.arraycopy(baseArray, 0, ar, 0, index);
+        }
+        System.arraycopy(baseArray, index+1, ar, index, baseArray.length-index-1);
+
+        String value = baseArray[index];
+        baseArray = ar;
+
+        return value;
     }
 
     @Override
