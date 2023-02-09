@@ -1,8 +1,8 @@
 package ua.ithillel.lesson5;
 
-public class MyArrayString implements HillelList{
+public class MyArrayList implements HillelList{
 
-    public static String[] baseArray;
+    private String[] baseArray;
     @Override
     public void add(String item) {
 
@@ -59,7 +59,7 @@ public class MyArrayString implements HillelList{
 
     @Override
     public String get(int index) {
-        return (baseArray == null) ? null : baseArray[index];
+        return (baseArray == null || index >= baseArray.length) ? null : baseArray[index];
     }
 
     @Override
