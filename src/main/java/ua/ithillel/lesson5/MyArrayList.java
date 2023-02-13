@@ -2,7 +2,7 @@ package ua.ithillel.lesson5;
 
 public class MyArrayList implements HillelList{
 
-    private String[] baseArray;
+    private String[] baseArray = new String[0];
     @Override
     public void add(String item) {
 
