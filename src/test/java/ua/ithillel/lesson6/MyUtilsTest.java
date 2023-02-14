@@ -1,7 +1,6 @@
 package ua.ithillel.lesson6;
 import java.util.*;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -12,7 +11,7 @@ class MyUtilsTest {
 
     @Test
     void shouldCountOccurrence() {
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         list.add("tree");
         list.add("house");
         list.add("bush");
@@ -29,10 +28,10 @@ class MyUtilsTest {
     }
 
     @Test
-    void shouldToArray(){
+    void shouldToList(){
         int[] array = {10, 5, 2, 15};
 
-        List list = new ArrayList<Integer>();
+        List<Integer> list = new ArrayList<>();
         list.add(10);
         list.add(5);
         list.add(2);
@@ -44,7 +43,7 @@ class MyUtilsTest {
 
     @Test
     void shouldFindUnique(){
-        List list = new ArrayList<Integer>();
+        List<Integer> list = new ArrayList<>();
         list.add(15);
         list.add(5);
         list.add(2);
@@ -54,10 +53,16 @@ class MyUtilsTest {
         list.add(38);
         list.add(2);
 
-        Set set = new HashSet<Integer>();
-        set.add(list);
+         // --- создадим список только с уникальным набором значений через интерфейс Set
+        Set<Integer> set = new HashSet<>(list);
+        //set.addAll(list);
 
+         // --- получим уникальный набор элементов через созданную нами функцию в наборе MyUtil
         MyUtils myUtils = new MyUtils();
-        assertTrue(set.containsAll(myUtils.findUnique(list)));
+        List<Integer> myListUnique = myUtils.findUnique(list);
+
+         // --- сравним двухсторонне, чтобы элементы списка Set и элементы нашей функции полностью совпали
+        assertTrue(set.containsAll(myListUnique));
+        assertTrue(myListUnique.containsAll(set));
     }
 }
