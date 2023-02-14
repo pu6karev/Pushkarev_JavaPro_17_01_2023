@@ -65,4 +65,24 @@ class MyUtilsTest {
         assertTrue(set.containsAll(myListUnique));
         assertTrue(myListUnique.containsAll(set));
     }
+
+    @Test
+    void shouldCalcOccurrence(){
+        ArrayList<String> list = new ArrayList<>();
+        list.add("tree");
+        list.add("house");
+        list.add("bush");
+        list.add("button");
+        list.add("chair");
+        list.add("table");
+        list.add("chair");
+        list.add("table");
+        list.add("spoon");
+        list.add("chair");
+
+        MyUtils myUtils = new MyUtils();
+        myUtils.calcOccurrence(list);
+        // --- список вначале состоял из 10 эл-тов, после подсчета совпадений и удаления содержит 7 эл-тов
+        assertEquals(7, list.size());
+    }
 }

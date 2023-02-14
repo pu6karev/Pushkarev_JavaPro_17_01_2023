@@ -43,4 +43,20 @@ public class MyUtils {
     }
 
 
+    public void calcOccurrence(ArrayList<String> list){
+
+        for (int i = 0; i < list.size(); i++) {
+            String iElem = list.get(i);
+
+            int counter = 1;
+            for (int j = i + 1; j < list.size(); j++) {
+                if (iElem.equals(list.get(j))) {
+                    counter++;
+                    list.remove(j);
+                }
+            }
+            System.out.println(iElem + ": " + counter);
+        }
+    }
+
 }
