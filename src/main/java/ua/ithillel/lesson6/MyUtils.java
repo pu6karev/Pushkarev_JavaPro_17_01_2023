@@ -43,7 +43,7 @@ public class MyUtils {
     // --- объекта удаляем его из текущего списка
     public List<Integer> findUnique(List<Integer> list){
 
-        for (int i = 0; i < list.size(); i++) {
+        for (Integer iElem : list) {
             Integer iElem = list.get(i);
 
             for (int j = i+1; j < list.size(); j++) {
