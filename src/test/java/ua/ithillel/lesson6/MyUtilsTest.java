@@ -23,8 +23,7 @@ class MyUtilsTest {
         list.add("spoon");
         list.add("chair");
 
-        MyUtils myUtils = new MyUtils();
-        assertEquals(3, myUtils.countOccurrence(list, "chair"));
+        assertEquals(3, MyUtils.countOccurrence(list, "chair"));
     }
 
     @Test
@@ -37,13 +36,12 @@ class MyUtilsTest {
         list.add(2);
         list.add(15);
 
-        MyUtils myUtils = new MyUtils();
-        assertTrue(list.containsAll(myUtils.toList(array)));
+        assertTrue(list.containsAll(MyUtils.toList(array)));
     }
 
     @Test
     public void shouldFindUnique(){
-        List<Integer> list = new ArrayList<>();
+        ArrayList<Integer> list = new ArrayList<>();
         list.add(15);
         list.add(5);
         list.add(2);
@@ -55,11 +53,9 @@ class MyUtilsTest {
 
          // --- создадим список только с уникальным набором значений через интерфейс Set
         Set<Integer> set = new HashSet<>(list);
-        //set.addAll(list);
 
          // --- получим уникальный набор элементов через созданную нами функцию в наборе MyUtil
-        MyUtils myUtils = new MyUtils();
-        List<Integer> myListUnique = myUtils.findUnique(list);
+        List<Integer> myListUnique = MyUtils.findUnique(list);
 
          // --- сравним двухсторонне, чтобы элементы списка Set и элементы нашей функции полностью совпали
         assertTrue(set.containsAll(myListUnique));
@@ -80,10 +76,9 @@ class MyUtilsTest {
         list.add("spoon");
         list.add("chair");
 
-        MyUtils myUtils = new MyUtils();
-        myUtils.calcOccurrence(list);
+        ArrayList<String> checkList = MyUtils.calcOccurrence(list);
         // --- список вначале состоял из 10 эл-тов, после подсчета совпадений и удаления содержит 7 эл-тов
-        assertEquals(7, list.size());
+        assertEquals(7, checkList.size());
     }
 
     @Test
@@ -100,8 +95,7 @@ class MyUtilsTest {
         list.add("spoon");
         list.add("chair");
 
-        MyUtils myUtils = new MyUtils();
-        ArrayList<Article> artList = myUtils.findOccurrence(list);
+        ArrayList<Article> artList = MyUtils.findOccurrence(list);
         // --- список вначале состоял из 10 эл-тов, после подсчета совпадений и удаления содержит 7 эл-тов
         assertEquals(7, artList.size());
 

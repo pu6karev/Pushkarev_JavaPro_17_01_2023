@@ -10,7 +10,7 @@ public class MyUtils {
       заповнений довільними словами 10-20 штук, які можуть повторюватись у необмеженій кількості. Порахувати скільки
       разів зустрічається переданий рядок як другий аргумент.
     */
-    public int countOccurrence(List<String> list, String item){
+    public static int countOccurrence(List<String> list, String item){
         int counter = 0;
         for (String elem : list) {
             if(elem.equals(item)){
@@ -25,7 +25,7 @@ public class MyUtils {
       2. Створити метод toList, що приймає на вхід цілісний масив довільної довжини. Конвертувати масив у список
       відповідного типу даних та повернути з методу.
     */
-    public List<Integer> toList(int[] array){
+    public static List<Integer> toList(int[] array){
         List<Integer> list = new ArrayList<>();
 
         for (int elem : array) {
@@ -41,19 +41,21 @@ public class MyUtils {
     */
     // --- берем в верхнем цикле 1-й объект списка, далее во вложенном цикле пробежимся по всему списку и при совпадении
     // --- объекта удаляем его из текущего списка
-    public List<Integer> findUnique(List<Integer> list){
+    public static List<Integer> findUnique(ArrayList<Integer> list){
+
+        List<Integer> copyList = new ArrayList<>(list);
 
         for (int i = 0; i < list.size(); i++) {
             Integer iElem = list.get(i);
 
-            for (int j = i+1; j < list.size(); j++) {
-                if(iElem.equals(list.get(j))){
-                    list.remove(j);
+            for (int j = i+1; j < copyList.size(); j++) {
+                if(iElem.equals(copyList.get(j))){
+                    copyList.remove(j);
                 }
             }
         }
-        System.out.println(list);
-        return list;
+        System.out.println(copyList);
+        return copyList;
     }
 
     /*
@@ -61,20 +63,23 @@ public class MyUtils {
       словами 10-20 штук, які можуть повторюватись у необмеженій кількості. Обчислити скільки разів трапляється кожне
       слово. Результат вивести у консоль.
     */
-    public void calcOccurrence(ArrayList<String> list){
+    public static ArrayList<String> calcOccurrence(ArrayList<String> list){
 
-        for (int i = 0; i < list.size(); i++) {
-            String iElem = list.get(i);
+        ArrayList<String> copyList = new ArrayList<>(list);
+
+        for (int i = 0; i < copyList.size(); i++) {
+            String iElem = copyList.get(i);
 
             int counter = 1;
-            for (int j = i + 1; j < list.size(); j++) {
-                if (iElem.equals(list.get(j))) {
+            for (int j = i + 1; j < copyList.size(); j++) {
+                if (iElem.equals(copyList.get(j))) {
                     counter++;
-                    list.remove(j);
+                    copyList.remove(j);
                 }
             }
             System.out.println(iElem + ": " + counter);
         }
+        return copyList;
     }
 
 
@@ -83,17 +88,18 @@ public class MyUtils {
     словами 10-20 штук, які можуть повторюватись у необмеженій кількості. Обчислити скільки разів трапляється кожне
     слово. Результат повернути у вигляді списку структур, що описують повторення кожного окремого взятого слова.
      */
-    public ArrayList<Article> findOccurrence(ArrayList<String> list){
+    public static ArrayList<Article> findOccurrence(ArrayList<String> list){
 
+        ArrayList<String> copyList = new ArrayList<>(list);
         ArrayList<Article> uniqueList = new ArrayList<>();      // список будет содержать объекты с уникальными строками
 
-        for (int i = 0; i < list.size(); i++) {
-            String iElem = list.get(i);                         // из строкового списка достаем строку
+        for (int i = 0; i < copyList.size(); i++) {
+            String iElem = copyList.get(i);                     // из строкового списка достаем строку
             Article article = new Article(iElem);               // помещаем строку в новый объект со счетчиком = 1
 
-            for (int j = i + 1; j < list.size(); j++) {         // перебор всех остальных строк со след.эл-та
-                if (iElem.equals(list.get(j))) {                // если найден повтор в списке строк
-                    list.remove(j);                             // удалим повтор
+            for (int j = i + 1; j < copyList.size(); j++) {     // перебор всех остальных строк со след.эл-та
+                if (iElem.equals(copyList.get(j))) {            // если найден повтор в списке строк
+                    copyList.remove(j);                         // удалим повтор
                     article.incrementCounter();                 // а в объекте отметим повторение строки
                 }
             }

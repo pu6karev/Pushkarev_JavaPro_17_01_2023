@@ -12,8 +12,8 @@ public class PhoneCatalog {
     }
 
     public Record find(String name){
-        for (int i = 0; i < recordList.size(); i++) {
-            Record rec = recordList.get(i);
+
+        for (Record rec : recordList) {
 
             if(name.equals(rec.getName()) ){
                 return rec;
@@ -27,8 +27,7 @@ public class PhoneCatalog {
 
         ArrayList<Record> nameList = new ArrayList<>();
 
-        for (int i = 0; i < recordList.size(); i++) {
-            Record rec = recordList.get(i);
+        for (Record rec : recordList) {
 
             if(name.equals(rec.getName()) ){
                 nameList.add(rec);
