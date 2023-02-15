@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PhoneCatalogTest {
     @Test
-    void shouldFind(){
+    public void shouldFind(){
 
         PhoneCatalog phoneCatalog = new PhoneCatalog();
         phoneCatalog.addRecord("Vasiliy Pushkarev", "(093)1115511");
@@ -31,7 +31,7 @@ class PhoneCatalogTest {
     }
 
     @Test
-    void shouldFindAll(){
+    public void shouldFindAll(){
 
         PhoneCatalog phoneCatalog = new PhoneCatalog();
         phoneCatalog.addRecord("Vasiliy Pushkarev", "(093)1115511");
@@ -51,7 +51,6 @@ class PhoneCatalogTest {
         for (int i = 0; i < fullOne.size(); i++) {
             Record rec = fullOne.get(i);
             assertEquals(rec, testList.get(i));
-
         }
 
     }

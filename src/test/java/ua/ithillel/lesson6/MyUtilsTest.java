@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class MyUtilsTest {
 
     @Test
-    void shouldCountOccurrence() {
+    public void shouldCountOccurrence() {
         List<String> list = new ArrayList<>();
         list.add("tree");
         list.add("house");
@@ -28,7 +28,7 @@ class MyUtilsTest {
     }
 
     @Test
-    void shouldToList(){
+    public void shouldToList(){
         int[] array = {10, 5, 2, 15};
 
         List<Integer> list = new ArrayList<>();
@@ -42,7 +42,7 @@ class MyUtilsTest {
     }
 
     @Test
-    void shouldFindUnique(){
+    public void shouldFindUnique(){
         List<Integer> list = new ArrayList<>();
         list.add(15);
         list.add(5);
@@ -67,7 +67,7 @@ class MyUtilsTest {
     }
 
     @Test
-    void shouldCalcOccurrence(){
+    public void shouldCalcOccurrence(){
         ArrayList<String> list = new ArrayList<>();
         list.add("tree");
         list.add("house");
@@ -84,5 +84,34 @@ class MyUtilsTest {
         myUtils.calcOccurrence(list);
         // --- список вначале состоял из 10 эл-тов, после подсчета совпадений и удаления содержит 7 эл-тов
         assertEquals(7, list.size());
+    }
+
+    @Test
+    public void shouldFindOccurrence(){
+        ArrayList<String> list = new ArrayList<>();
+        list.add("tree");
+        list.add("house");
+        list.add("bush");
+        list.add("button");
+        list.add("chair");
+        list.add("table");
+        list.add("chair");
+        list.add("table");
+        list.add("spoon");
+        list.add("chair");
+
+        MyUtils myUtils = new MyUtils();
+        ArrayList<Article> artList = myUtils.findOccurrence(list);
+        // --- список вначале состоял из 10 эл-тов, после подсчета совпадений и удаления содержит 7 эл-тов
+        assertEquals(7, artList.size());
+
+        // --- узнаем индекс объекта внутри которого есть поле "chair", счетчик должен быть равен 3
+        int i;
+        for (i = 0; i < artList.size(); i++) {
+            if(artList.get(i).getName().equals("chair")){
+                break;
+            }
+        }
+        assertEquals(3, artList.get(i).getCounter() );
     }
 }
