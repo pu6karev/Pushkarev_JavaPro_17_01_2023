@@ -4,12 +4,8 @@ import java.util.*;
 
 public class FileNavigator {
 
-    private List<FileData> totalList = new ArrayList<>();
-    private Map<String, List<FileData>> map = new HashMap<>();
-
-//    public List<FileData> getTotalList() {
-//        return totalList;
-//    }
+    private final List<FileData> totalList = new ArrayList<>();
+    private final Map<String, List<FileData>> map = new HashMap<>();
 
     public Map<String, List<FileData>> getMap() {
         return map;
@@ -99,6 +95,26 @@ public class FileNavigator {
             }
         }
         return index;
+    }
+
+    // --- перегруженный метод для 7-го пункта с исключением, если переданный путь и путь в файле не совпадает
+    public void add(String path, FileData fileData){
+        String currentPath = fileData.getPath();
+
+        if (!path.equals(currentPath)){
+            throw new WrongPathException("You,ve written wrong path to the method");
+        }
+
+        for (Map.Entry<String, List<FileData>> me: map.entrySet()){
+            if(currentPath.equals(me.getKey())){
+                me.getValue().add(fileData);
+                return;
+            }
+        }
+
+        List<FileData> list = new ArrayList<>();
+        list.add(fileData);
+        map.put(currentPath, list);
     }
 
 }

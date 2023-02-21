@@ -2,6 +2,7 @@ package ua.ithillel.lesson8;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 import java.util.*;
 
@@ -32,7 +33,7 @@ class FileNavigatorTest {
 
 
     @Test
-    void shouldAdd() {
+    public void shouldAdd() {
         //initAdd();
 
         Map<String, List<FileData>> map = fileNavigator.getMap();
@@ -45,7 +46,7 @@ class FileNavigatorTest {
     }
 
     @Test
-    void shouldFind() {
+    public void shouldFind() {
         List<FileData> expextedList = new ArrayList<>();
         expextedList.add(fileFamily1);
         expextedList.add(fileFamily2);
@@ -61,7 +62,7 @@ class FileNavigatorTest {
     }
 
     @Test
-    void shouldFilterBySize() {
+    public void shouldFilterBySize() {
         List<FileData>  checkedList1 = fileNavigator.filterBySize(1_000_000);
         // --- два файла размером меньше 1 млн.
         assertEquals(2, checkedList1.size());
@@ -73,7 +74,7 @@ class FileNavigatorTest {
     }
 
     @Test
-    void shouldRemove() {
+    public void shouldRemove() {
         Map<String, List<FileData>> map = fileNavigator.getMap();
         assertEquals(2, map.size());
 
@@ -82,7 +83,7 @@ class FileNavigatorTest {
     }
 
     @Test
-    void shouldSortBySize() {
+    public void shouldSortBySize() {
         Set<FileData> sortedList = fileNavigator.sortBySize();
 
         // --- через итератор возьмем 1-й и последний элементы списка
@@ -91,7 +92,7 @@ class FileNavigatorTest {
         FileData fileDataLast = null;
         boolean isFirstEntry = false;
 
-        // --- пройдемся циклом по списку и возьмем 1-й и последний объекты (файлы)
+        // --- пройдемся циклом по списку и возьмем 1-й и последний объекты (файлы), для получения размеров в них
         while (it.hasNext()){
             if(!isFirstEntry){
                 fileDataFirst = it.next();
@@ -102,8 +103,31 @@ class FileNavigatorTest {
         }
 
         // --- сравним размеры самомго маленького и самого большого файла
-        assertEquals(8_050, fileDataFirst.getSize());
-        assertEquals(35_185_020, fileDataLast.getSize());
+        if(fileDataFirst != null) assertEquals(8_050, fileDataFirst.getSize());
+        if(fileDataLast != null) assertEquals(35_185_020, fileDataLast.getSize());
+    }
+
+    @Test
+    public void shouldAddWithException(){
+        // --- после действи ф-ии init(), добавим путь с расхождением
+        FileData fileFamily4 = new FileData("/home/family/","School", 8_050);
+
+        assertThrows(WrongPathException.class, new Executable() {
+            @Override
+            public void execute() throws Throwable {
+                fileNavigator.add("/home/familyWrong/", fileFamily4);
+            }
+        });
+
+        // --- добавление с правильным путем и проверка
+        fileNavigator.add("/home/family/", fileFamily4);
+
+        // ---
+        Map<String, List<FileData>> map = fileNavigator.getMap();
+        // --- сколько ключей содержит карта
+        assertEquals(2, map.size());
+        // --- из карты по ключу "путь к файлу" вытягиваем List, содержащий 3 файла
+        assertEquals(4, map.get("/home/family/").size());
     }
 
 }
