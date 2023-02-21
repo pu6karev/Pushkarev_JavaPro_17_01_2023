@@ -84,23 +84,11 @@ class FileNavigatorTest {
 
     @Test
     public void shouldSortBySize() {
-        Set<FileData> sortedList = fileNavigator.sortBySize();
+        List<FileData> sortedList = fileNavigator.sortBySize();
 
-        // --- через итератор возьмем 1-й и последний элементы списка
-        Iterator<FileData> it = sortedList.iterator();
-        FileData fileDataFirst = null;
-        FileData fileDataLast = null;
-        boolean isFirstEntry = false;
-
-        // --- пройдемся циклом по списку и возьмем 1-й и последний объекты (файлы), для получения размеров в них
-        while (it.hasNext()){
-            if(!isFirstEntry){
-                fileDataFirst = it.next();
-                isFirstEntry = true;
-                continue;
-            }
-            fileDataLast = it.next();
-        }
+        FileData fileDataFirst = sortedList.get(0);
+        int len = sortedList.size();
+        FileData fileDataLast =sortedList.get(len-1);
 
         // --- сравним размеры самомго маленького и самого большого файла
         if(fileDataFirst != null) assertEquals(8_050, fileDataFirst.getSize());
