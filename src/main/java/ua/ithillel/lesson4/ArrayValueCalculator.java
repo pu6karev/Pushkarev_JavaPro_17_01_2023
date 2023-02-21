@@ -19,7 +19,7 @@ public class ArrayValueCalculator {
     }
 
 
-    public int doCalc(String[] row, int firstIndex) throws ArraySizeException {
+    private int doCalc(String[] row, int firstIndex) throws ArraySizeException {
 
         if(row.length != DIMENSION){
             throw new ArraySizeException("Array must have dimension 4*4");
