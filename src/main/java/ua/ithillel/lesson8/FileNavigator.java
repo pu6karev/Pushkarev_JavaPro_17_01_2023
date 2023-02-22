@@ -15,11 +15,9 @@ public class FileNavigator {
     public void add(FileData fileData){
         String currentPath = fileData.getPath();
 
-        for (String pathKey: map.keySet()) {
-            if (map.containsKey(currentPath)) {
-                map.get(currentPath).add(fileData);
-                return;
-            }
+        if (map.containsKey(currentPath)) {
+            map.get(currentPath).add(fileData);
+            return;
         }
 
         List<FileData> list = new ArrayList<>();
