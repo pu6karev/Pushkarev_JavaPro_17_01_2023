@@ -13,4 +13,5 @@ public class ExampleForAction {
         }
 
         return (sum / array.length);
-    }}
+    }
+}
