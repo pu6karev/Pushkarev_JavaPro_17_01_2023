@@ -6,10 +6,10 @@ import java.util.concurrent.TimeUnit;
 public class Main {
     public static void main(String[] args) throws IOException {
 
-        shouldOutInfo();
-        shouldOutDebug();
+//        shouldOutInfo();
+//        shouldOutDebug();
 
-        fileOverSize();
+        fileDebugOverSize();
 
     }
 
@@ -39,7 +39,7 @@ public class Main {
         }
     }
 
-    public static void fileOverSize(){
+    public static void fileInfoOverSize(){
         var config = new FileLoggerConfiguration("src\\main\\java\\storage\\outOver.log", LoggingLevel.INFO, 100);
 
         // --- создаем объект, формирующий файл для логгирования
@@ -53,8 +53,23 @@ public class Main {
             } catch (InterruptedException ie){
                 ie.printStackTrace();
             }
-
         }
+    }
 
+    public static void fileDebugOverSize(){
+        var config = new FileLoggerConfiguration("src\\main\\java\\storage\\outOver.log", LoggingLevel.INFO, 100);
+
+        // --- создаем объект, формирующий файл для логгирования
+        FileLogger fileLogger = new FileLogger(config);
+        for (int i = 0; i < 10; i++) {
+            fileLogger.debugExt("first");
+            fileLogger.debugExt("second");
+            // --- вводим секундную задержку, так как в имени файла будет время и они не должны перезаписаться
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException ie){
+                ie.printStackTrace();
+            }
+        }
     }
 }

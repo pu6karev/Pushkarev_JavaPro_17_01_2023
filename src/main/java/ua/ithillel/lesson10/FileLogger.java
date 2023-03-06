@@ -48,6 +48,21 @@ public class FileLogger {
         pw.flush();
     }
 
+    public void debugExt(String notification) {
+        if(file.length() >= config.getMaxFileSize()){
+            pw.close();
+            String txt = " cur.size = " + file.length() + " max.size = " + file.length() + " path:" + file.getPath();
+            file = createFile(config.getPath());
+        }
+
+        infoExt(notification);
+
+        String date = String.format("%tF %<tT.%<tL", new Date());
+        pw.println(date + "  DEBUG  " + notification);
+        pw.flush();
+
+    }
+
     public void infoExt(String notification) {
         if(file.length() >= config.getMaxFileSize()){
             pw.close();
@@ -75,7 +90,7 @@ public class FileLogger {
         String[] names = file.getName().split("\\.");             // разобъем имя файла перед и после точки
         names[0] += String.format("_%tF_%<tT.", new Date());            // добавим перед точкой дату
         String newName = file.getParent() +"\\"+ names[0] + names[1];
-        String rightName = newName.replace(':', '-');                   // замена двоеточия на дефис
+        String rightName = newName.replace(':', '-');    // замена двоеточия на дефис
         File file1 = new File(rightName);
 
         try{
