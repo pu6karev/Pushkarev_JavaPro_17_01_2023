@@ -9,7 +9,16 @@
 
 name: Java CI
 
-on: [push]
+# on: [push]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+
+permissions:
+  contents: read
 
 jobs:
   build:
