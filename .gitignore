@@ -15,7 +15,7 @@ build/
 *.log
 
 # Package files
-#*.jar
+lib/
 
 # Maven
 target/
