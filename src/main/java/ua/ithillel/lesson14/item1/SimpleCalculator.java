@@ -20,7 +20,7 @@ public class SimpleCalculator {
 
         int sum = 0;
         try {
-            sum = sumFuture.get();
+            return sumFuture.get();
         } catch (ExecutionException e) {
             throw new RuntimeException(e);
         } catch (InterruptedException e) {
