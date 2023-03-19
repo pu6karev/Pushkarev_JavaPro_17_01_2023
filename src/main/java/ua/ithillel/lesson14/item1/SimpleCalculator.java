@@ -22,8 +22,6 @@ public class SimpleCalculator {
             return sumFuture.get();
         }  catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);
-//        } catch (ExecutionException e) {
-//            throw new RuntimeException(e);
         }
 
     }
