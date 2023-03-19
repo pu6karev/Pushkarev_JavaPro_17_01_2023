@@ -18,15 +18,13 @@ public class SimpleCalculator {
         // --- получим сумму квадратов двух чисел
         CompletableFuture<Integer> sumFuture = firstSquareFuture.thenCombine(secondSquareFuture, combineSquares);
 
-        int sum = 0;
         try {
             return sumFuture.get();
-        } catch (ExecutionException e) {
+        }  catch (InterruptedException e) {
             throw new RuntimeException(e);
-        } catch (InterruptedException e) {
+        } catch (ExecutionException e) {
             throw new RuntimeException(e);
         }
 
-        return sum;
     }
 }

@@ -22,7 +22,7 @@ public class MyTask extends RecursiveAction {
         if(end - start <= array.length / numOfThreads){
             for (int i = start; i < end; i++) {
                 array[i] = (array[i] * Math.sin(0.2 + i / 5.0) * Math.cos(0.2 + i / 5.0) * Math.cos(0.4 + i / 2.0));
-                //System.out.println("i=" + i + " array[i]=" + array[i]);
+                System.out.println("i=" + i + " array[i]=" + array[i]);
             }
         } else {
 
