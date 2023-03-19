@@ -28,7 +28,7 @@ public class MyTask extends RecursiveAction {
 
             int middle = (start + end) / 2;
             var left = new MyTask(array, start, middle, numOfThreads);
-            var right = new MyTask(array, middle+1, end, numOfThreads);
+            var right = new MyTask(array, middle, end, numOfThreads);
 
             left.fork();
             right.fork();
