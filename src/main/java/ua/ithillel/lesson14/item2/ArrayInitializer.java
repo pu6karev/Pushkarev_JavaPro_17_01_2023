@@ -12,7 +12,7 @@ public class ArrayInitializer {
         System.out.println("before=" + Arrays.toString(arr));
 
         var pool = new ForkJoinPool(numberTreads);
-        MyTask myTask = new MyTask(arr, 0, arr.length-1, numberTreads);
+        MyTask myTask = new MyTask(arr, 0, arr.length, numberTreads);
         pool.invoke(myTask);
 
         System.out.println("after=" + Arrays.toString(arr));
