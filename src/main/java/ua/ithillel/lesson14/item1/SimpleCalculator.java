@@ -20,10 +20,10 @@ public class SimpleCalculator {
 
         try {
             return sumFuture.get();
-        }  catch (InterruptedException e) {
+        }  catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);
-        } catch (ExecutionException e) {
-            throw new RuntimeException(e);
+//        } catch (ExecutionException e) {
+//            throw new RuntimeException(e);
         }
 
     }
