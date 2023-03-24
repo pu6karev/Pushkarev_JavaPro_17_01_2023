@@ -16,7 +16,7 @@ public class ProductMoving {
         return list;
     }
 
-    public List<Product> getCategoryForPrice(Category category, double minPrice) {
+    public List<Product> getProductsByCategoryAndPrice(Category category, double minPrice) {
 
         List<Product> categoryAndPrice = list.stream()
                 .filter(s -> s.getCategory() == category && s.getPrice() > minPrice)
