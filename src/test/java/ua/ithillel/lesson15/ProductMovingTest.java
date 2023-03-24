@@ -30,14 +30,14 @@ class ProductMovingTest {
         for (Product elem : arrayProduct) productMoving.add(elem);      // добавление элементов из массива в список
 
         //assertArrayEquals(arrayProduct, );
-        assertEquals(arrayProduct.length, productMoving.getWholeList().size());
+        assertEquals(arrayProduct.length, productMoving.getAll().size());
     }
 
     @Test
     void shouldGetCategoryForPrice() {
         for (Product elem : arrayProduct) productMoving.add(elem);      // добавление элементов из массива в список
 
-        List<Product> filterList = productMoving.getCategoryForPrice(Category.BOOK, 250);
+        List<Product> filterList = productMoving.getProductsByCategoryAndPrice(Category.BOOK, 250);
 
         assertEquals(2, filterList.size());
     }

@@ -9,12 +9,12 @@ public class Product {
     private final boolean discount;
     private final LocalDate additionDate;
 
-    public Product(String name, Category category, double price, boolean discount, LocalDate addingDate) {
+    public Product(String name, Category category, double price, boolean discount, LocalDate additionDate) {
         this.name = name;
         this.category = category;
         this.price = price;
         this.discount = discount;
-        this.addingDate = addingDate;
+        this.additionDate = additionDate;
     }
 
     public String getName() {
@@ -34,7 +34,7 @@ public class Product {
     }
 
     public LocalDate getAddingDate() {
-        return addingDate;
+        return additionDate;
     }
 
     // --- установим новую цену по скидке
@@ -55,7 +55,7 @@ public class Product {
                 ", category=" + category +
                 ", price=" + price +
                 ", discount=" + discount +
-                ", addingDate=" + addingDate +
+                ", addingDate=" + additionDate +
                 '}';
     }
 }
