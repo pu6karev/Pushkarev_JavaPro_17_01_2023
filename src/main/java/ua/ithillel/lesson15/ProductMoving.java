@@ -12,7 +12,7 @@ public class ProductMoving {
         list.add(product);
     }
 
-    public List<Product> getWholeList(){
+    public List<Product> getAll(){
         return list;
     }
 
