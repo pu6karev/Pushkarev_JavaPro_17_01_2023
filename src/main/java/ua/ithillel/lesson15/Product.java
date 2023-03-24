@@ -7,7 +7,7 @@ public class Product {
     private final Category category;
     private double price;
     private final boolean discount;
-    private final LocalDate addingDate;
+    private final LocalDate additionDate;
 
     public Product(String name, Category category, double price, boolean discount, LocalDate addingDate) {
         this.name = name;
