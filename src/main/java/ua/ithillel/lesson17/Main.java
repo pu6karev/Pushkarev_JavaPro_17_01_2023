@@ -3,32 +3,42 @@ package ua.ithillel.lesson17;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
         String delimiter = ";";
         File file = new File("heroes_information.csv");
 
         // --- Создадим список с массивами слов из файла, т.е. шахматка всех слов в файле с заголовком в 1-й строке
         // --- у Кинг-Конга в значении роста вместо точки задана запятая, из-за чего ошибка парсинга в double, заменим
-        List<String[]> words = Files.lines(file.toPath())
-                .map(s -> s.replace(",", "."))
-                .map(line -> line.split(delimiter))
-                .toList();
-
+//        List<String[]> words = Files.lines(file.toPath())
+//                .map(s -> s.replace(",", "."))
+//                .map(line -> line.split(delimiter))
+//                .toList();
+        List<String[]> words = new ArrayList<>();
+        try {
+            words = Files.lines(file.toPath())
+                    .map(s -> s.replace(",", "."))
+                    .map(line -> line.split(delimiter))
+                    .toList();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         // --- List<String[]> lines переводим в List<Map<String, String>>
         // --- первую строку с заголовком пропустим и далее преобразуем каждую строку в Map<>, используя
         // --- заголовки в качестве ключей, в качестве значения - содержимое из соответствующих столбцов.
+        final String[] headers = words.get(0);
         List<Map<String, String>> mapList = words.stream()
                 .skip(1)
                 .map(line -> {
                     Map<String, String> map = new HashMap<>();
                     for (int i = 0; i < line.length; i++) {
-                        map.put(words.get(0)[i], line[i]);
+                        map.put(headers[i], line[i]);
                     }
                     return map;
                 })
