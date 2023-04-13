@@ -1,0 +1,43 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: mydb
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+#  pgadmin:
+#    image: dpage/pgadmin4
+#    restart: always
+#    environment:
+#      PGADMIN_DEFAULT_EMAIL: 'admin@example.com'
+#      PGADMIN_DEFAULT_PASSWORD: 'admin123'
+#    ports:
+#      - "8080:80"
+#    depends_on:
+#      - db
+#
+#  dbeaver:
+#    image: dbeaver/cloudbeaver:latest
+#    restart: always
+#    environment:
+#      - DBEAVER_PRODUCT_NAME=DBeaver
+#      - DBEAVER_WS_DIR=/workspaces
+#      - DBEAVER_WS_OPEN_PROJECT_ON_STARTUP=false
+#      - DBEAVER_WS_SAVE_EXIT_ON_CLOSE=false
+#    volumes:
+#      - ./dbeaver/workspace:/workspaces
+#    ports:
+#      - "8081:8978"
+#    depends_on:
+#      - db
+
+volumes:
+  db-data:
