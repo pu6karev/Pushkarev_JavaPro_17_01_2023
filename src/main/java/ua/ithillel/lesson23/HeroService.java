@@ -5,6 +5,7 @@ import ua.ithillel.lesson22.HeroDao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class HeroService {
     private final HeroDao heroDao;
@@ -16,16 +17,27 @@ public class HeroService {
     }
 
     public List<HeroDto> getHeroes() {
-        List<Hero> heroes = heroDao.findAll();
-        List<HeroDto> listDto = new ArrayList<>();
-        for (Hero hero : heroes) {
-            HeroDto heroDto = new HeroDto.HeroBuilder()
-                    .name(hero.getName())
-                    .build();
-            List<String> movies = heroMovieService.getPlayedIn(hero.getName());
-            listDto.add(heroDto);
-        }
-        return listDto;
+        return heroDao.findAll()
+                .stream()
+                .map(hero -> {
+                    List<String> movies = heroMovieService.getPlayedIn(hero.getName());
+                    return new HeroDto.HeroBuilder()
+                            .name(hero.getName())
+                            .build();
+                })
+                .collect(Collectors.toList());
     }
+
+//        List<Hero> heroes = heroDao.findAll();
+//        List<HeroDto> listDto = new ArrayList<>();
+//        for (Hero hero : heroes) {
+//            HeroDto heroDto = new HeroDto.HeroBuilder()
+//                    .name(hero.getName())
+//                    .build();
+//            List<String> movies = heroMovieService.getPlayedIn(hero.getName());
+//            listDto.add(heroDto);
+//        }
+//        return listDto;
+//    }
 }
 

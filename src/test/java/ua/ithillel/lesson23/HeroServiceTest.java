@@ -32,6 +32,9 @@ public class HeroServiceTest {
 
 
         List<HeroDto> heroDtos = heroService.getHeroes();
+        Mockito.verify(heroMovieService).getPlayedIn("Ant-Man");
+        Mockito.verify(heroMovieService).getPlayedIn("KingKong");
+
 
         assertEquals(heroDtos.size(), 2);
         assertEquals(heroDao.findAll().size(), 2);
