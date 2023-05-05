@@ -22,4 +22,9 @@ public class HeroFabric {
         return new HeroService(heroDao, heroMovieService);
     }
 
+    public static HeroService createServiceDao(DataSource dataSource) {
+        HeroDao heroDao = new HeroDaoImpl(dataSource);
+        return new HeroService(heroDao);
+    }
+
 }

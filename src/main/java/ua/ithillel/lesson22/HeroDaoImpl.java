@@ -18,7 +18,7 @@ public class HeroDaoImpl implements HeroDao {
     @Override
     public List<Hero> findAll() {
 
-        String sql = "SELECT * FROM heroinfo LIMIT 20";
+        String sql = "SELECT * FROM heroinfo";
 
         try(Connection connection = dataSource.getConnection();
             Statement statement = connection.createStatement()) {

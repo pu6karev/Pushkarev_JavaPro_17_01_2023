@@ -7,6 +7,10 @@ public class HeroDto {
     private final String name;
     private final List<String> movies;
 
+    public String getName() {
+        return name;
+    }
+
     private HeroDto(HeroBuilder heroBuilder) {
         this.name = heroBuilder.name;
         this.movies = heroBuilder.movies;
