@@ -67,6 +67,19 @@ public class HeroDaoImpl implements HeroDao {
     }
 
     @Override
+    public Hero findById(Long id) {
+        String sql = "SELECT * FROM heroinfo WHERE id = " + id;
+
+        try(Connection connection = dataSource.getConnection();
+            Statement statement = connection.createStatement()) {
+            ResultSet result = statement.executeQuery(sql);
+            return mapHeroes(result).stream().findFirst().orElseThrow();
+        } catch (SQLException e){
+            throw new RuntimeException();
+        }
+    }
+
+    @Override
     public void create(Hero hero) {
         String sql = "INSERT INTO heroinfo (name, gender) VALUES ('" + hero.getName() + "','" + hero.getGender() + "')";
 

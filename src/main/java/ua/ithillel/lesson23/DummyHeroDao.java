@@ -32,6 +32,11 @@ public class DummyHeroDao implements HeroDao {
     }
 
     @Override
+    public Hero findById(Long id) {
+        return null;
+    }
+
+    @Override
     public void create(Hero hero) {
         db.add(hero);
     }

@@ -27,4 +27,8 @@ public class HeroFabric {
         return new HeroService(heroDao);
     }
 
+    public static HeroServiceDao createServiceRest(DataSource dataSource) {
+        HeroDao heroDao = new HeroDaoImpl(dataSource);
+        return new HeroServiceDao(heroDao);
+    }
 }
