@@ -1,4 +1,4 @@
-package ua.ithillel.lesson29_2;
+package ua.ithillel.lesson29;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import ua.ithillel.lesson23.HeroService;

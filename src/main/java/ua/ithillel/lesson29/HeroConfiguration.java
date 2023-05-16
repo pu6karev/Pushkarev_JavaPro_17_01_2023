@@ -1,4 +1,4 @@
-package ua.ithillel.lesson29_2;
+package ua.ithillel.lesson29;
 
 import org.postgresql.ds.PGSimpleDataSource;
 import org.springframework.beans.factory.annotation.Value;
