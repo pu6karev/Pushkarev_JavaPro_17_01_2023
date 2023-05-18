@@ -15,6 +15,9 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
     implementation 'org.postgresql:postgresql:42.5.4'
 
+    implementation 'org.springframework:spring-orm:6.0.6'
+    implementation 'org.hibernate:hibernate-core:6.2.2.Final'
+
     testImplementation 'org.mockito:mockito-core:5.2.0'
     testImplementation 'org.mockito:mockito-junit-jupiter:5.2.0'
 }
