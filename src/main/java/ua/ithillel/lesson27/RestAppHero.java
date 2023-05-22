@@ -20,7 +20,7 @@ public class RestAppHero {
         return HeroFabric.createServiceRest(getDataSource());
     }
 
-    private DataSource getDataSource(){
+    public static DataSource getDataSource(){
         PGSimpleDataSource dataSource = new PGSimpleDataSource();
         dataSource.setDatabaseName("dbHero");
         dataSource.setUser("postgres");

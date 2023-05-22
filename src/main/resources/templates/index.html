@@ -1,0 +1,33 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<p th:text="'Hello, ' + ${nameX} + '!'" />
+
+<div th:switch="${heroes}">
+    <h2 th:case="null">No heroes yet!</h2>
+    <div th:case="*">
+        <h2>Heroes</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Gender</th>
+                <th>Height</th>
+                <th>Publisher</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="hero : ${heroes}">
+                <td th:text="${hero.name}"></td>
+                <td th:text="${hero.gender}"></td>
+                <td th:text="${hero.height}"></td>
+                <td th:text="${hero.publisher}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+<!--    <p><a href="/create">Add a new student</a></p>-->
+</div>
+
+</body>
+</html>
