@@ -17,7 +17,7 @@ public class SpringMvcConfig {
         return HeroFabric.createServiceRest(getDataSource());
     }
 
-    private static DataSource getDataSource(){
+    private DataSource getDataSource(){
         PGSimpleDataSource dataSource = new PGSimpleDataSource();
         dataSource.setDatabaseName("dbHero");
         dataSource.setUser("postgres");
