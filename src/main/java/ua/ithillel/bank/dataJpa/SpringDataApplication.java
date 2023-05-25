@@ -25,7 +25,7 @@ public class SpringDataApplication {
         Long id = 4L;
         User userN = userService.getById(id);               // достанем объект пользователя по ID
         userN.setEmail("dublin@mail.ua");                   // поменяем ему в объекте email
-        userService.update(userN);                          // обновим, передав пользователя с новым email
+        userService.update(id, userN);                      // обновим, передав пользователя с новым email
         userService.getById(id);                            // убедимся, что email обновлен
 
         userService.delete(id);                             // удалим пользователя

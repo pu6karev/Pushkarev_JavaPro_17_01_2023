@@ -32,10 +32,17 @@ public class UserService {
     }
 
     @Transactional
-    public void update(User updatedUser){
-        updatedUser.setId(updatedUser.getId());  // чтобы метод save не создавал новую запись
-        userRepository.save(updatedUser);
+    public void update(Long id, User updatedUser){
+        var user = userRepository.findById(id).orElseThrow();
+        user.setId(updatedUser.getId());
+        userRepository.save(user);
     }
+
+//    @Transactional
+//    public void update(User updatedUser){
+//        updatedUser.setId(updatedUser.getId());  // чтобы метод save не создавал новую запись
+//        userRepository.save(updatedUser);
+//    }
 
     @Transactional
     public void delete(Long id){
