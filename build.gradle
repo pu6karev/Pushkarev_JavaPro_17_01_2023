@@ -19,6 +19,7 @@ dependencies {
 
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
     implementation 'org.postgresql:postgresql:42.5.4'
+    implementation 'org.flywaydb:flyway-core:9.16.3'
 
     implementation 'org.hibernate:hibernate-core:6.2.2.Final'
 
