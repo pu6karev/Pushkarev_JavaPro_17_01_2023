@@ -20,41 +20,57 @@ public class AccountService {
         this.personRepository = personRepository;
     }
 
-    public List<Account> getAllAccounts() {
-        return accountRepository.findAll().stream().toList();
+    public List<AccountDto> getAllAccounts() {
+        return accountRepository.findAll().stream()
+                .map(this::mapAccount)
+                .toList();
     }
 
-    public List<Account> getAccounts(String personUid) {
+    public List<AccountDto> getAccounts(String personUid) {
         Person person = personRepository.findByUid(personUid).orElseThrow();
         return accountRepository.findAll().stream()
-                .filter(account -> account.getPersonId() == person.getId())
+                .map(this::mapAccount)
+                .filter(account -> account.personId() == person.getId())
                 .collect(Collectors.toList());
     }
 
-    public Account getAccount(String iban) {
-        return accountRepository.findByIban(iban).orElseThrow();
+    public AccountDto getAccount(String uid) {
+        return accountRepository.findByUid(uid).map(this::mapAccount).orElseThrow();
     }
 
-    public Account createAccount(String personUid, Account account) {
+    public AccountDto createAccount(String personUid, AccountDto account) {
         Person person = personRepository.findByUid(personUid).orElseThrow();
         long idPerson = person.getId();
-        return accountRepository.save(Account.builder()
+
+        Account newAccount = Account.builder()
                 .uid(UUID.randomUUID().toString())
-                .iban(account.getIban())
-                .balance(account.getBalance())
+                .iban(account.iban())
+                .balance(account.balance())
                 .personId(idPerson)
-                .build());
+                .build();
+        accountRepository.save(newAccount);
+
+        return mapAccount(newAccount);
     }
 
-    public Account updateAccount(String uid, Account account) {
+    public AccountDto updateAccount(String uid, AccountDto account) {
         var accountToUpdate = accountRepository.findByUid(uid).orElseThrow();
-        accountToUpdate.setIban(account.getIban());
-        accountToUpdate.setBalance(account.getBalance());
-        return accountRepository.save(accountToUpdate);
+        accountToUpdate.setIban(account.iban());
+        accountToUpdate.setBalance(account.balance());
+        return mapAccount(accountRepository.save(accountToUpdate));
     }
 
     public void deleteAccount(String uid) {
         var accountToDelete = accountRepository.findByUid(uid).orElseThrow();
         accountRepository.delete(accountToDelete);
+    }
+
+    private AccountDto mapAccount(Account account) {
+        return AccountDto.builder()
+                .uid(account.getUid())
+                .iban(account.getIban())
+                .balance(account.getBalance())
+                .personId(account.getPersonId())
+                .build();
     }
 }

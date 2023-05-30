@@ -1,7 +1,7 @@
 package ua.ithillel.bank.versioning;
 
 import org.springframework.web.bind.annotation.*;
-import ua.ithillel.bank.versioning.reposytory.Account;
+import ua.ithillel.bank.versioning.service.AccountDto;
 import ua.ithillel.bank.versioning.service.AccountService;
 
 import java.util.List;
@@ -15,27 +15,27 @@ public class AccountController {
     }
 
     @GetMapping("/api/accounts")
-    public List<Account> getAllAccounts() {
+    public List<AccountDto> getAllAccounts() {
         return accountService.getAllAccounts();
     }
 
     @GetMapping("/api/persons/{uid}/accounts")
-    public List<Account> getUidAccounts(@PathVariable("uid") String uid) {
+    public List<AccountDto> getUidAccounts(@PathVariable("uid") String uid) {
         return accountService.getAccounts(uid);
     }
 
-    @GetMapping("/api/accounts/{accountIban}")
-    public Account getAccountByIBan(@PathVariable("accountIban") String accountIban) {
-        return accountService.getAccount(accountIban);
+    @GetMapping("/api/accounts/{uid}")
+    public AccountDto getAccountByIBan(@PathVariable("uid") String uid) {
+        return accountService.getAccount(uid);
     }
 
     @PostMapping("/api/persons/{uid}/accounts")
-    public Account createAccount(@PathVariable("uid") String uid, @RequestBody Account account) {
+    public AccountDto createAccount(@PathVariable("uid") String uid, @RequestBody AccountDto account) {
         return accountService.createAccount(uid, account);
     }
 
     @PutMapping("/api/accounts/{uid}")
-    public Account updatePerson(@PathVariable("uid") String uid, @RequestBody Account account) {
+    public AccountDto updatePerson(@PathVariable("uid") String uid, @RequestBody AccountDto account) {
         return accountService.updateAccount(uid, account);
     }
 

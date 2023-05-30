@@ -1,6 +1,8 @@
 package ua.ithillel.bank.versioning.service;
 
-//@Builder
-//public record AccountDto(String iban, int balance) {
-//
-//}
+import lombok.Builder;
+
+@Builder
+public record AccountDto(String uid, String iban, int balance, long personId) {
+
+}

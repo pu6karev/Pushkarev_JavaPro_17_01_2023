@@ -47,7 +47,10 @@ public class PersonService {
     }
 
     private PersonDto mapPerson(Person person) {
-        return PersonDto.builder().id(person.getUid()).name(person.getName()).email(person.getEmail())
+        return PersonDto.builder()
+                .id(person.getUid())
+                .name(person.getName())
+                .email(person.getEmail())
                 .build();
     }
 }
