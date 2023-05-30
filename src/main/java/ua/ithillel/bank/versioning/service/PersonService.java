@@ -13,10 +13,11 @@ import java.util.UUID;
 public class PersonService {
     private final PersonRepository personRepository;
 
-    public PersonDto findPerson(String id){
+    public PersonDto findPerson(String id) {
         return personRepository.findByUid(id).map(this::mapPerson).orElseThrow();
     }
-    public List<PersonDto> findPersons(){
+
+    public List<PersonDto> findPersons() {
         return personRepository.findAll().stream()
                 .map(this::mapPerson)
                 .toList();
@@ -24,14 +25,17 @@ public class PersonService {
 
 
     public PersonDto create(PersonDto person) {
-        var newPerson = Person.builder(). uid(UUID.randomUUID().toString()) .name(person.name()).email(person.email())
-                        .build();
+        var newPerson = Person.builder()
+                .uid(UUID.randomUUID().toString())
+                .name(person.name())
+                .email(person.email())
+                .build();
         var savedPerson = personRepository.save(newPerson);
         return mapPerson(savedPerson);
     }
 
     public void deletePerson(String uid) {
-        var person =  personRepository.findByUid(uid).orElseThrow();
+        var person = personRepository.findByUid(uid).orElseThrow();
         personRepository.delete(person);
     }
 
@@ -42,7 +46,8 @@ public class PersonService {
         return mapPerson(personRepository.save(personToUpdate));
     }
 
-    private PersonDto mapPerson(Person person){
-        return PersonDto.builder().id(person.getUid()). name(person.getName()). email(person.getEmail())
+    private PersonDto mapPerson(Person person) {
+        return PersonDto.builder().id(person.getUid()).name(person.getName()).email(person.getEmail())
                 .build();
-    }}
+    }
+}

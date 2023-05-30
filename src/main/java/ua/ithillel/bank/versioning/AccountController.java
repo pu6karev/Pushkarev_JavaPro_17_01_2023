@@ -34,13 +34,13 @@ public class AccountController {
         return accountService.createAccount(uid, account);
     }
 
-    @PutMapping("/api/accounts/{accountIban}")
-    public Account updatePerson(@PathVariable("accountIban") String accountIban, @RequestBody Account account) {
-        return accountService.updateAccount(accountIban, account);
+    @PutMapping("/api/accounts/{uid}")
+    public Account updatePerson(@PathVariable("uid") String uid, @RequestBody Account account) {
+        return accountService.updateAccount(uid, account);
     }
 
-    @DeleteMapping("/api/accounts/{accountIban}")
-    public void deleteAccount(@PathVariable("accountIban") String accountIban) {
-        accountService.deleteAccount(accountIban);
+    @DeleteMapping("/api/accounts/{uid}")
+    public void deleteAccount(@PathVariable("uid") String uid) {
+        accountService.deleteAccount(uid);
     }
 }

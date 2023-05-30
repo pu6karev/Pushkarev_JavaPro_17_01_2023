@@ -16,6 +16,7 @@ import lombok.*;
 public class Account extends BaseEntity {
     private String uid;
     private String iban;
-
     private int balance;
+
+    private long personId;
 }
