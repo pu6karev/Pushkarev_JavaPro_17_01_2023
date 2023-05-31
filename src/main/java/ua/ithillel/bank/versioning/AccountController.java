@@ -20,8 +20,8 @@ public class AccountController {
     }
 
     @GetMapping("/api/persons/{uid}/accounts")
-    public List<AccountDto> getUidAccounts(@PathVariable("uid") String uid) {
-        return accountService.getAccounts(uid);
+    public List<AccountDto> getUidAccounts(@PathVariable("uid") String personUid) {
+        return accountService.getAccounts(personUid);
     }
 
     @GetMapping("/api/accounts/{uid}")
@@ -30,8 +30,8 @@ public class AccountController {
     }
 
     @PostMapping("/api/persons/{uid}/accounts")
-    public AccountDto createAccount(@PathVariable("uid") String uid, @RequestBody AccountDto account) {
-        return accountService.createAccount(uid, account);
+    public AccountDto createAccount(@PathVariable("uid") String personUid, @RequestBody AccountDto account) {
+        return accountService.createAccount(personUid, account);
     }
 
     @PutMapping("/api/accounts/{uid}")
