@@ -19,6 +19,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -95,5 +96,18 @@ class AccountControllerIntegrationTest {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Test
+    public void shouldDeleteAccount() throws Exception {
+        // --- так как в методе shouldCreateAccount() уже создавали, извлечем счет
+        Account account = accountRepository.findByIban("UA260000004444").orElseThrow();
+
+        // Выполнение запроса на удаление аккаунта
+        mockMvc.perform(delete("/api/accounts/{uid}", account.getUid()))
+                .andExpect(status().isOk());
+
+        mockMvc.perform(get("/api/accounts"))
+                .andExpect(jsonPath("$", hasSize(1)));
     }
 }
