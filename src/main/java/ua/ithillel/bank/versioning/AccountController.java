@@ -25,7 +25,7 @@ public class AccountController {
     }
 
     @GetMapping("/api/accounts/{uid}")
-    public AccountDto getAccountByIBan(@PathVariable("uid") String uid) {
+    public AccountDto getAccountByUid(@PathVariable("uid") String uid) {
         return accountService.getAccount(uid);
     }
 
@@ -35,7 +35,7 @@ public class AccountController {
     }
 
     @PutMapping("/api/accounts/{uid}")
-    public AccountDto updatePerson(@PathVariable("uid") String uid, @RequestBody AccountDto account) {
+    public AccountDto updateAccount(@PathVariable("uid") String uid, @RequestBody AccountDto account) {
         return accountService.updateAccount(uid, account);
     }
 
