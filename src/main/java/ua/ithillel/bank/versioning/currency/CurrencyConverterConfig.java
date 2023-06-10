@@ -1,4 +1,4 @@
-package ua.ithillel.bank.externalIntegration;
+package ua.ithillel.bank.versioning.currency;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

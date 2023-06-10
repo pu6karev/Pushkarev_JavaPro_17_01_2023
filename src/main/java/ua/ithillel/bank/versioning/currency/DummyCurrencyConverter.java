@@ -1,4 +1,4 @@
-package ua.ithillel.bank.externalIntegration;
+package ua.ithillel.bank.versioning.currency;
 
 import java.util.Currency;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package ua.ithillel.bank.externalIntegration.model;
+package ua.ithillel.bank.versioning.currency.model;
 
 import lombok.Data;
 

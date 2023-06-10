@@ -1,4 +1,4 @@
-package ua.ithillel.bank.externalIntegration;
+package ua.ithillel.bank.versioning.currency;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;

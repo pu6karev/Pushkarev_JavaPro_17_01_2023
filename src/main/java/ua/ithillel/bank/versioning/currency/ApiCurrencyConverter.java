@@ -1,7 +1,7 @@
-package ua.ithillel.bank.externalIntegration;
+package ua.ithillel.bank.versioning.currency;
 
 import org.springframework.web.reactive.function.client.WebClient;
-import ua.ithillel.bank.externalIntegration.model.ResponseApi;
+import ua.ithillel.bank.versioning.currency.model.ResponseApi;
 
 import java.util.Currency;
 import java.util.Map;
