@@ -2,32 +2,95 @@ package ua.ithillel.bank.versioning;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.tomakehurst.wiremock.WireMockServer;
+import com.github.tomakehurst.wiremock.client.WireMock;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import ua.ithillel.bank.versioning.currency.CurrencyConverter;
+import ua.ithillel.bank.versioning.currency.model.ResponseApi;
+import ua.ithillel.bank.versioning.currency.model.ResponseData;
 import ua.ithillel.bank.versioning.reposytory.Account;
 import ua.ithillel.bank.versioning.reposytory.AccountRepository;
 import ua.ithillel.bank.versioning.service.AccountDto;
 
+import java.io.IOException;
+import java.util.Currency;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static org.hamcrest.Matchers.hasSize;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@ActiveProfiles("test")
 class AccountControllerIntegrationTest {
     @Autowired
     protected AccountRepository accountRepository;
     @Autowired
     protected MockMvc mockMvc;
+
+    @Autowired
+    protected ObjectMapper objectMapper;
+    @Autowired
+    protected WireMockServer wireMockServer;
+    @Autowired
+    protected CurrencyConverter currencyConverter;
+
+    // --- передаем данные на вебсервис в формате нашего класса, используя objectMapper и проверяем ф-ю конвертера валют
+    @Test
+    public void shouldCreateApiCurrencyWireMock() throws IOException {
+
+        // --- задаем две валюты USD и EUR с их курсом и укладываем в правильный формат класса ResponseApi
+        ResponseData currencyUSD = ResponseData.builder()
+                .code("USD")
+                .value(1)
+                .build();
+        ResponseData currencyEUR = ResponseData.builder()
+                .code("EUR")
+                .value(0.97)
+                .build();
+
+        Map<String, ResponseData> dataMap = new HashMap<>();
+        dataMap.put("USD", currencyUSD);
+        dataMap.put("EUR", currencyEUR);
+
+        ResponseApi response = ResponseApi.builder()
+                .data(dataMap)
+                .build();
+
+        // ---
+        wireMockServer.stubFor(WireMock.get(urlEqualTo("/v3/latest?apikey=testapikey"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withHeader("Content-Type", "application/json")
+                        .withBody(objectMapper.writeValueAsString(response))));
+
+        // --- получим правильный формат валюты
+        Currency usd = Currency.getInstance("USD");
+        Currency eur = Currency.getInstance("EUR");
+
+        // --- ковертируем 100 долларов в евро и 100 евро в доллары.
+        double usdToEur = currencyConverter.convert(usd, eur, 100);
+        double eurToUsd = currencyConverter.convert(eur, usd, 100);
+        double delta = 0.0001;
+
+        assertEquals(usdToEur, (0.97/1)*100, delta);
+        assertEquals(eurToUsd, (1/0.97)*100, delta);
+    }
+
 
     @Test
     public void shouldCreateAccount() throws Exception {
@@ -45,13 +108,13 @@ class AccountControllerIntegrationTest {
                 .personId(2L)
                 .build());
 
-        mockMvc.perform(get("/api/accounts"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/accounts"))
                 .andExpect(jsonPath("$", hasSize(2)));
     }
 
     @Test
     public void shouldGetAllAccounts() throws Exception {
-        mockMvc.perform(get("/api/accounts"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/accounts"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)));
     }
@@ -107,7 +170,7 @@ class AccountControllerIntegrationTest {
         mockMvc.perform(delete("/api/accounts/{uid}", account.getUid()))
                 .andExpect(status().isOk());
 
-        mockMvc.perform(get("/api/accounts"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/accounts"))
                 .andExpect(jsonPath("$", hasSize(1)));
     }
 }
