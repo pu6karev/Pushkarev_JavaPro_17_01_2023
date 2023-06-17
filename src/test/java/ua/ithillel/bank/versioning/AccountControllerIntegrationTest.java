@@ -20,10 +20,6 @@ import ua.ithillel.bank.versioning.reposytory.AccountRepository;
 import ua.ithillel.bank.versioning.service.AccountDto;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.util.Currency;
 import java.util.HashMap;
 import java.util.Map;
@@ -52,33 +48,6 @@ class AccountControllerIntegrationTest {
     protected WireMockServer wireMockServer;
     @Autowired
     protected CurrencyConverter currencyConverter;
-
-
-
-    // --- для начального понимания, простая проверка передачи на url в обычном формате JSON "валюта" : "курс"
-    @Test
-    public void shouldCreateSimpleCheckedWireMock() throws IOException, InterruptedException {
-
-        wireMockServer.stubFor(WireMock.get(urlEqualTo("/v3/latest"))
-                .willReturn(aResponse()
-                        .withStatus(200)
-                        .withHeader("Content-Type", "application/json")
-                        .withBody("{\"USD\" : \"1\", \"EUR\" : \"0.97\"}")));
-
-        // --- создание экземпляра HttpClient
-        HttpClient client = HttpClient.newHttpClient();
-
-        // --- отправка GET-запроса для получения данных
-        HttpRequest getRequest = HttpRequest.newBuilder()
-                .uri(URI.create("http://localhost:" + wireMockServer.port() + "/v3/latest"))
-                .GET()
-                .build();
-        HttpResponse<String> getResponse = client.send(getRequest, HttpResponse.BodyHandlers.ofString());
-
-        // --- проверка, что полученные данные соответствуют ожиданиям
-        String expectedResponse = "{\"USD\" : \"1\", \"EUR\" : \"0.97\"}";
-        assertEquals(expectedResponse, getResponse.body());
-    }
 
     // --- передаем данные на вебсервис в формате нашего класса, используя objectMapper и проверяем ф-ю конвертера валют
     @Test
