@@ -18,12 +18,14 @@ import ua.ithillel.bank.versioning.currency.model.ResponseData;
 import ua.ithillel.bank.versioning.reposytory.Account;
 import ua.ithillel.bank.versioning.reposytory.AccountRepository;
 import ua.ithillel.bank.versioning.service.AccountDto;
+import ua.ithillel.bank.versioning.service.PersonOperationsService;
 
 import java.io.IOException;
 import java.util.Currency;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
@@ -49,10 +51,46 @@ class AccountControllerIntegrationTest {
     @Autowired
     protected CurrencyConverter currencyConverter;
 
+    @Autowired
+    protected PersonOperationsService personOperationsService;
+
+    @Test
+    public void shouldPersonOperationsServiceConvert() throws Exception {
+        setCurrencyWiremock();
+
+        // --- получим правильный формат валюты
+        Currency usd = Currency.getInstance("USD");
+        Currency eur = Currency.getInstance("EUR");
+
+        CompletableFuture<Double> conversionResult1 = personOperationsService.convert(usd, eur, 1000);
+        double usdToEur = conversionResult1.get();
+        CompletableFuture<Double> conversionResult2 = personOperationsService.convert(eur, usd, 1000);
+        double eurToUsd = conversionResult2.get();
+
+        double delta = 0.0001;
+        assertEquals(usdToEur, (0.97/1)*1000, delta);
+        assertEquals(eurToUsd, (1/0.97)*1000, delta);
+    }
+
     // --- передаем данные на вебсервис в формате нашего класса, используя objectMapper и проверяем ф-ю конвертера валют
     @Test
     public void shouldCreateApiCurrencyWireMock() throws IOException {
+        setCurrencyWiremock();
 
+        // --- получим правильный формат валюты
+        Currency usd = Currency.getInstance("USD");
+        Currency eur = Currency.getInstance("EUR");
+
+        // --- ковертируем 100 долларов в евро и 100 евро в доллары.
+        double usdToEur = currencyConverter.convert(usd, eur, 100);
+        double eurToUsd = currencyConverter.convert(eur, usd, 100);
+        double delta = 0.0001;
+
+        assertEquals(usdToEur, (0.97/1)*100, delta);
+        assertEquals(eurToUsd, (1/0.97)*100, delta);
+    }
+
+    private void setCurrencyWiremock() throws IOException{
         // --- задаем две валюты USD и EUR с их курсом и укладываем в правильный формат класса ResponseApi
         ResponseData currencyUSD = ResponseData.builder()
                 .code("USD")
@@ -77,18 +115,6 @@ class AccountControllerIntegrationTest {
                         .withStatus(200)
                         .withHeader("Content-Type", "application/json")
                         .withBody(objectMapper.writeValueAsString(response))));
-
-        // --- получим правильный формат валюты
-        Currency usd = Currency.getInstance("USD");
-        Currency eur = Currency.getInstance("EUR");
-
-        // --- ковертируем 100 долларов в евро и 100 евро в доллары.
-        double usdToEur = currencyConverter.convert(usd, eur, 100);
-        double eurToUsd = currencyConverter.convert(eur, usd, 100);
-        double delta = 0.0001;
-
-        assertEquals(usdToEur, (0.97/1)*100, delta);
-        assertEquals(eurToUsd, (1/0.97)*100, delta);
     }
 
 

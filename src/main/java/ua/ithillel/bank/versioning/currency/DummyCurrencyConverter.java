@@ -1,9 +1,12 @@
 package ua.ithillel.bank.versioning.currency;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.Currency;
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 public class DummyCurrencyConverter implements CurrencyConverter {
     Map<String, Double> currencyMap = new HashMap<>();
 
@@ -23,14 +26,14 @@ public class DummyCurrencyConverter implements CurrencyConverter {
         double rate2 = (currencyMap.containsKey(key2)) ? currencyMap.get(key2) : 0;
 
         if(rate1 == 0 || rate2 == 0){
-            System.out.println("Currency is not found, try again.");
+            log.info("Currency is not found, try again.");
             return -1;
         }
 
         double result = (amount * rate2) / rate1;
 
-        System.out.println(" key1=" + key1 + " rate1=" + rate1);
-        System.out.println(" key2=" + key2 + " rate2=" + rate2 + " result=" + result);
+        log.info("key1={} rate1={}", key1, rate1);
+        log.info("key2={} rate2={} result={}", key2, rate2, result);
         return result;
     }
 }
