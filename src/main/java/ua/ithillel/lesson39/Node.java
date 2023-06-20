@@ -1,5 +1,8 @@
 package ua.ithillel.lesson39;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Node {
     private final int value;
     private Node left;          // заглушка для будущей вставки меньшего значения слева
@@ -29,13 +32,15 @@ public class Node {
     }
 
     // --- выход вначале на наименьшее левое значение при помощи рекурсии, потом идем вверх по наростающей влево/вправо
-    public void traverse() {
-        if (left != null) {
-            left.traverse();
-        }
-        System.out.print(value + " ");
-        if (right != null) {
-            right.traverse();
-        }
+    public List<Integer> traverse() {
+        List<Integer> result = new ArrayList<>();
+
+        if (left != null) result.addAll(left.traverse());           // добавление результата обхода левого поддерева
+
+        result.add(value);                                          // тек.значение узла перед обходом правого поддерева
+
+        if (right != null) result.addAll(right.traverse());         // добавление результата обхода правого поддерева
+
+        return result;
     }
 }

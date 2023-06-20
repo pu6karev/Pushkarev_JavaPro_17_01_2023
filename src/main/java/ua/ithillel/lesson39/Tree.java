@@ -1,5 +1,8 @@
 package ua.ithillel.lesson39;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Tree {
     private Node root;
 
@@ -15,9 +18,11 @@ public class Tree {
         }
     }
 
-    public void traverse() {
+    public List<Integer> traverse() {
         if (root != null) {
-            root.traverse();
+            return root.traverse();
         }
+        return new ArrayList<>();
     }
+
 }
