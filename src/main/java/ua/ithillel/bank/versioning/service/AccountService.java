@@ -47,6 +47,7 @@ public class AccountService {
                 .iban(account.iban())
                 .balance(account.balance())
                 .personId(idPerson)
+                .currency(account.currency())
                 .build();
         accountRepository.save(newAccount);
 
@@ -71,6 +72,7 @@ public class AccountService {
                 .iban(account.getIban())
                 .balance(account.getBalance())
                 .personId(account.getPersonId())
+                .currency(account.getCurrency())
                 .build();
     }
 }

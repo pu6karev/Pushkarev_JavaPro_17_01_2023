@@ -125,6 +125,7 @@ class AccountControllerIntegrationTest {
                 .iban("UA260000005555")
                 .balance(23400)
                 .personId(1L)
+                .currency("UAH")
                 .build());
 
         accountRepository.save(Account.builder()
@@ -132,6 +133,7 @@ class AccountControllerIntegrationTest {
                 .iban("UA260000004444")
                 .balance(500)
                 .personId(2L)
+                .currency("UAH")
                 .build());
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/accounts"))
