@@ -10,7 +10,6 @@ import lombok.*;
 @Table(name = "accounts")
 
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
 
 public class Account extends BaseEntity {
@@ -19,4 +18,22 @@ public class Account extends BaseEntity {
     private int balance;
 
     private long personId;
+
+    private String currency;
+
+    public Account(String uid, String iban, int balance, long personId, String currency) {
+        this.uid = uid;
+        this.iban = iban;
+        this.balance = balance;
+        this.personId = personId;
+        setCurrency(currency);
+    }
+
+    // --- проверка на обязательность значения поля currency
+    public void setCurrency(String currency) {
+        if (currency == null || currency.isEmpty()) {
+            throw new IllegalArgumentException("Currency must be provided");
+        }
+        this.currency = currency;
+    }
 }
