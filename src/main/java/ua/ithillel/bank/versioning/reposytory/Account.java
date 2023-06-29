@@ -1,5 +1,6 @@
 package ua.ithillel.bank.versioning.reposytory;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.*;
@@ -11,7 +12,7 @@ import lombok.*;
 
 @Builder
 @NoArgsConstructor
-
+@AllArgsConstructor
 public class Account extends BaseEntity {
     private String uid;
     private String iban;
@@ -19,21 +20,16 @@ public class Account extends BaseEntity {
 
     private long personId;
 
+    @Column(nullable = false)
     private String currency;
 
-    public Account(String uid, String iban, int balance, long personId, String currency) {
-        this.uid = uid;
-        this.iban = iban;
-        this.balance = balance;
-        this.personId = personId;
-        setCurrency(currency);
+    public void decreaseBalance(int amount) {
+        int newBalance = balance - amount;
+        setBalance(newBalance);
     }
 
-    // --- проверка на обязательность значения поля currency
-    public void setCurrency(String currency) {
-        if (currency == null || currency.isEmpty()) {
-            throw new IllegalArgumentException("Currency must be provided");
-        }
-        this.currency = currency;
+    public void increaseBalance(int amount) {
+        int newBalance = balance + amount;
+        setBalance(newBalance);
     }
 }
