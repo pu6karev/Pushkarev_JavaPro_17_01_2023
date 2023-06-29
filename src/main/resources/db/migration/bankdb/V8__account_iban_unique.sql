@@ -1,0 +1,1 @@
+ALTER TABLE accounts ADD CONSTRAINT UK_account_iban UNIQUE (iban);

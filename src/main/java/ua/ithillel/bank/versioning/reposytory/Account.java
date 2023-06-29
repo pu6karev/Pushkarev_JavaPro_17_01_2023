@@ -15,6 +15,7 @@ import lombok.*;
 @AllArgsConstructor
 public class Account extends BaseEntity {
     private String uid;
+    @Column(unique = true)
     private String iban;
     private int balance;
 
