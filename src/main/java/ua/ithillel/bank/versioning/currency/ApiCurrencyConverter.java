@@ -1,5 +1,6 @@
 package ua.ithillel.bank.versioning.currency;
 
+import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import ua.ithillel.bank.versioning.currency.model.ResponseApi;
 
@@ -7,6 +8,7 @@ import java.util.Currency;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@Component
 public class ApiCurrencyConverter implements CurrencyConverter {
     private final CurrencyConverterConfig currencyConverterConfig;
     private final WebClient webClient;

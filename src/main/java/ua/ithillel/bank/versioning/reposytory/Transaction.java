@@ -17,6 +17,6 @@ public class Transaction extends  BaseEntity{
     private String uid;
     private String ibanFrom;
     private String ibanTo;
-    private int value;
+    private int quantity;
     private String currency;
 }

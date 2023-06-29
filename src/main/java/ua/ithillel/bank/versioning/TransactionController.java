@@ -1,9 +1,6 @@
 package ua.ithillel.bank.versioning;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ua.ithillel.bank.versioning.service.TransactionDto;
 import ua.ithillel.bank.versioning.service.TransactionService;
 
@@ -19,5 +16,10 @@ public class TransactionController {
     @PostMapping
     public TransactionDto transferMoney(@RequestBody TransactionDto transaction) {
         return transactionService.transferBalance(transaction);
+    }
+
+    @GetMapping("/{transactionId}")
+    public TransactionDto getTransaction(@PathVariable String transactionId) {
+        return transactionService.getTransaction(transactionId);
     }
 }

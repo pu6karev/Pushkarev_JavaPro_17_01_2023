@@ -6,6 +6,5 @@ import ua.ithillel.bank.versioning.reposytory.Amount;
 import java.time.Instant;
 
 @Builder
-public record TransactionDto(String ibanFrom, String ibanTo, Amount amount, Instant createdAt) {
-
+public record TransactionDto(String uid, String ibanFrom, String ibanTo, Amount amount, Instant createdAt) {
 }
