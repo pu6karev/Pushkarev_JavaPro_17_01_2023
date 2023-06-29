@@ -37,7 +37,7 @@ class TransactionControllerIntegrationTest {
     void transferMoney() throws Exception {
         Account fromAccount = Account.builder()
                 .uid(UUID.randomUUID().toString())
-                .iban("UA260000005555")
+                .iban("UA2600000055551")
                 .balance(23400)
                 .personId(1L)
                 .currency("UAH")
@@ -45,7 +45,7 @@ class TransactionControllerIntegrationTest {
 
         Account toAccount = Account.builder()
                 .uid(UUID.randomUUID().toString())
-                .iban("UA260000004444")
+                .iban("UA2600000044442")
                 .balance(500)
                 .personId(2L)
                 .currency("UAH")
