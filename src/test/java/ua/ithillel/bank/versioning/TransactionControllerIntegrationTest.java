@@ -72,8 +72,8 @@ class TransactionControllerIntegrationTest {
                 .andExpect(jsonPath("$.amount.currency").value("UAH"));
 
         // --- проверяем, что балансы изменились
-        Account updatedFromAccount = accountRepository.findFirstByIban(fromAccount.getIban()).orElse(null);
-        Account updatedToAccount = accountRepository.findFirstByIban(toAccount.getIban()).orElse(null);
+        Account updatedFromAccount = accountRepository.findByIban(fromAccount.getIban()).orElse(null);
+        Account updatedToAccount = accountRepository.findByIban(toAccount.getIban()).orElse(null);
 
         assertNotNull(updatedFromAccount);
         assertNotNull(updatedToAccount);
