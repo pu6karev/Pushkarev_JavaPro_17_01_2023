@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface AccountRepository extends JpaRepository<Account, Long> {
-    Optional<Account> findByUid(String uid);
-    Optional<Account> findByIban(String iban);
+public interface TransactionRepository extends JpaRepository<Transaction, Long> {
+    Optional<Transaction> findByUid(String uid);
 }
